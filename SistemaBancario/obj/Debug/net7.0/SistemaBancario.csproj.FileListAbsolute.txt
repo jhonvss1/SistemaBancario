@@ -1,0 +1,14 @@
+C:\Users\jhons\Desktop\Desenvolvimento\AULA C#\Sistema-Bancario\SistemaBancario\SistemaBancario\bin\Debug\net7.0\SistemaBancario.exe
+C:\Users\jhons\Desktop\Desenvolvimento\AULA C#\Sistema-Bancario\SistemaBancario\SistemaBancario\bin\Debug\net7.0\SistemaBancario.deps.json
+C:\Users\jhons\Desktop\Desenvolvimento\AULA C#\Sistema-Bancario\SistemaBancario\SistemaBancario\bin\Debug\net7.0\SistemaBancario.runtimeconfig.json
+C:\Users\jhons\Desktop\Desenvolvimento\AULA C#\Sistema-Bancario\SistemaBancario\SistemaBancario\bin\Debug\net7.0\SistemaBancario.dll
+C:\Users\jhons\Desktop\Desenvolvimento\AULA C#\Sistema-Bancario\SistemaBancario\SistemaBancario\bin\Debug\net7.0\SistemaBancario.pdb
+C:\Users\jhons\Desktop\Desenvolvimento\AULA C#\Sistema-Bancario\SistemaBancario\SistemaBancario\obj\Debug\net7.0\SistemaBancario.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\jhons\Desktop\Desenvolvimento\AULA C#\Sistema-Bancario\SistemaBancario\SistemaBancario\obj\Debug\net7.0\SistemaBancario.AssemblyInfoInputs.cache
+C:\Users\jhons\Desktop\Desenvolvimento\AULA C#\Sistema-Bancario\SistemaBancario\SistemaBancario\obj\Debug\net7.0\SistemaBancario.AssemblyInfo.cs
+C:\Users\jhons\Desktop\Desenvolvimento\AULA C#\Sistema-Bancario\SistemaBancario\SistemaBancario\obj\Debug\net7.0\SistemaBancario.csproj.CoreCompileInputs.cache
+C:\Users\jhons\Desktop\Desenvolvimento\AULA C#\Sistema-Bancario\SistemaBancario\SistemaBancario\obj\Debug\net7.0\SistemaBancario.dll
+C:\Users\jhons\Desktop\Desenvolvimento\AULA C#\Sistema-Bancario\SistemaBancario\SistemaBancario\obj\Debug\net7.0\refint\SistemaBancario.dll
+C:\Users\jhons\Desktop\Desenvolvimento\AULA C#\Sistema-Bancario\SistemaBancario\SistemaBancario\obj\Debug\net7.0\SistemaBancario.pdb
+C:\Users\jhons\Desktop\Desenvolvimento\AULA C#\Sistema-Bancario\SistemaBancario\SistemaBancario\obj\Debug\net7.0\SistemaBancario.genruntimeconfig.cache
+C:\Users\jhons\Desktop\Desenvolvimento\AULA C#\Sistema-Bancario\SistemaBancario\SistemaBancario\obj\Debug\net7.0\ref\SistemaBancario.dll
