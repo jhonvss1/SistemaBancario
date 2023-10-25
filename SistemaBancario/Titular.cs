@@ -10,19 +10,21 @@ namespace SistemaBancário
     {
 
         public string? Nome { get; set; }
+        public string Senha { get; set; }
         public string CPF { get; set; }
         public string RG { get; set; }
         public int Conta { get; set; }
         public Double Saldo { get; set; }
 
         //Construtor
-        public Titular(string? nome, string? cpf, string rg, int conta, double saldo)
+        public Titular(string? nome, string? cpf, string rg, int conta, double saldo, string senha)
         {
             Nome = nome;
             CPF = cpf;
             RG = rg;
             Conta = conta;
             Saldo = saldo;
+            Senha = senha;  
         }
 
 

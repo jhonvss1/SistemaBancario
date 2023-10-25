@@ -26,7 +26,8 @@ while (execution)
     Console.WriteLine("6 - Encerrar uma conta");
     Console.WriteLine("7 - Fechar aplicação");
     Console.WriteLine("=-=-=-=-=-=-=-=-=-=-=-=-=-=");
-    Console.Write("O que quer fazer? ");
+    Console.WriteLine("O que quer fazer? ");
+    
 
     int opção;
     if (!int.TryParse(Console.ReadLine(), out opção) || opção < 1)
@@ -68,7 +69,7 @@ while (execution)
 
 //Método NovaConta - Não me perder na identação
 void NovaConta()
-{
+{ 
     Console.Write("Informe seu nome e sobrenome: ");
     string? name = Console.ReadLine().ToUpper();
 
@@ -93,9 +94,7 @@ void NovaConta()
     Console.Write("Informe o CPF do titular: ");
     string? cpf = Console.ReadLine();
 
-    string CpfNoSpace = cpf.Replace(" ", "");
-
-    bool CpfValidation = Regex.IsMatch(CpfNoSpace, "^[0-9]{3}.?[0-9]{3}.?[0-9]{3}-?[0-9]{2}$");
+    bool CpfValidation = Regex.IsMatch(cpf, "^[0-9]{3}[0-9]{3}[0-9]{3}[0-9]{2}$");
 
 
     if (CpfValidation == false)
@@ -104,14 +103,14 @@ void NovaConta()
         return;
     }
 
-    if (string.IsNullOrEmpty(cpf))
+    if (string.IsNullOrEmpty(cpf) || cpf.Length != 11)
     {
         Console.WriteLine("CPF inválido.");
         return;
     }
 
     Console.Write("Informe o RG do titular: ");
-    string rg = (Console.ReadLine());
+    string? rg = (Console.ReadLine());
 
     bool RgValidation = Regex.IsMatch(rg, "^[0-9]{7,14}$");
 
@@ -127,12 +126,33 @@ void NovaConta()
         return;
     }
 
+    long ValorCpf = Convert.ToInt64(cpf);
+    long ValorRg = Convert.ToInt64(rg);
+    if (ValorCpf == ValorRg || ValorRg == ValorCpf)
+    {
+        Console.WriteLine($"RG: {rg} CPF: {ValorCpf}");
+        Console.WriteLine("RG OU CPF IGUAIS.");
+        return;
+    }
+
+    Console.Write
+        ("Insira uma senha. (Será usada para qualquer tipo de operação (6 dígitos apenas números)): ");
+    string Password = Console.ReadLine();
+    if (!Regex.IsMatch(Password, "^[0-9]{6}$"))
+    {
+        Console.WriteLine("SENHA INVÁLIDA.");
+        return;
+    }
 
     Random random = new Random();
     int conta = random.Next(10000, 80000);
 
+    // Iniciando a variável
     double saldo = 0;
-    Titular titular = new Titular(name, cpf, rg, conta, saldo);
+
+    Titular titular = new Titular(name, cpf, rg, conta, saldo, Password);
+
+    //Adicionando os dados do cliente a Lista 
     clientes.Add(titular);
 
     Console.WriteLine("Conta criada com sucesso!");
@@ -140,7 +160,12 @@ void NovaConta()
 
 //Método ListarTitulares
 void ListarTitulares()
-{
+{ 
+    if (clientes.Count == 0)
+    {
+        Console.WriteLine("SEM CORRENTISTAS.");
+        return;
+    }
     foreach (Titular titularesview in clientes)
     {
         Console.WriteLine("============================");
@@ -174,13 +199,16 @@ void Sacar()
         return;
     }
 
+    Console.Write("Informe a senha: ");
+    string Password = Console.ReadLine();
+
     double ValorSacar = Convert.ToDouble(ValorSacarValidation);
 
-    Titular titular = clientes.Find(cliente => cliente.Conta == ContaNumero);
+    Titular titular = clientes.Find(cliente => cliente.Conta == ContaNumero && cliente.Senha == Password);
 
     if (titular == null)
     {
-        Console.WriteLine("CONTA NÃO ENCONTRADA");
+        Console.WriteLine("CONTA ou SENHA INVÁLIDAS");
         return;
     }
 
@@ -235,8 +263,10 @@ void Depositar()
 }
 
 //Método Transferir
+
 void Transferir()
 {
+    //INFORMAÇÕES DA CONTA ORIGEM
     Console.Write("Informe a conta de origem que vai realizar a transferência: ");
     string ValidaçãoContaOrigem = Console.ReadLine();
 
@@ -246,8 +276,9 @@ void Transferir()
         return;
     }
 
-    int ContaOrigem = Convert.ToInt32(Console.ReadLine());
+    int ContaOrigem = Convert.ToInt32(ValidaçãoContaOrigem);
 
+    //INFORMAÇÕES DA CONTA DESTINO
     Console.Write("Informe a conta que deseja transferir: ");
     string ValidaçãoContaDestino = Console.ReadLine();
 
@@ -256,8 +287,9 @@ void Transferir()
         Console.WriteLine("Conta Destino Inválida");
         return;
     }
-    int ContaDestino = Convert.ToInt32(Console.ReadLine());
+    int ContaDestino = Convert.ToInt32(ValidaçãoContaDestino);
 
+    //VALOR DESEJAVEL PARA TRANSFERENCIA
     Console.Write("Informe agora o valor que deseja transferir: ");
     string ValidaçãoValorTransfer = Console.ReadLine();
 
@@ -267,19 +299,31 @@ void Transferir()
         return;
     }
 
-    Double ValorTransfer = Convert.ToDouble(Console.ReadLine());
+    //RECEBIMENTO DA SENHA PARA AUTORIZAÇÃO DA TRANSFERENCIA
+    Console.Write("informe sua senha: ");
+    string Password = Console.ReadLine();
+    //VALIDAÇÃO DO PASSWORD COM REGEX
+    if(!Regex.IsMatch(Password, "^[0-9]{6}$"))
+    {
+        Console.WriteLine("SENHA INVÁLIDA.");
+        return;
+    }
 
-    Titular titularorigem = clientes.Find(clientes => clientes.Conta == ContaOrigem);
+    //  CONVERTENDO A VARIAVEL PARA REALIZAR PROCEDIMENTOS CORRETOS
+    Double ValorTransfer = Convert.ToDouble(ValidaçãoValorTransfer);
+
+    Titular titularorigem = clientes.Find(clientes => clientes.Conta == ContaOrigem && clientes.Senha == Password);
     Titular titulardestino = clientes.Find(clientes => clientes.Conta == ContaDestino);
 
     if (titularorigem == null || titulardestino == null)
     {
-        Console.WriteLine("Conta origem ou destino não encontradas.");
+        Console.WriteLine("CONTAS ou SENHA INVÁLIDAS");
     }
 
     titularorigem.Saldo -= ValorTransfer;
 
     titulardestino.Saldo += ValorTransfer;
+
     Console.WriteLine($"Transferência de R${ValorTransfer:F2} realizada com sucesso para {titulardestino.Nome}");
 }
 //Método EncerrarConta
@@ -294,11 +338,14 @@ void EncerrarConta()
     }
     int ExcluirConta = Convert.ToInt32(Console.ReadLine());
 
-    Titular titular = clientes.Find(clientes => clientes.Conta == ExcluirConta);
+    Console.Write("informe sua senha: ");
+    string Password = Console.ReadLine();
+
+    Titular titular = clientes.Find(clientes => clientes.Conta == ExcluirConta && clientes.Senha == Password);
 
     if (titular == null)
     {
-        Console.WriteLine("Conta não encontrada.");
+        Console.WriteLine("CONTA ou SENHA INVÁLIDAS.");
     }
     else
     {
