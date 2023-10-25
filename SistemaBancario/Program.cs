@@ -264,7 +264,7 @@ void Depositar()
 
 //Método Transferir
 
-
+void Transferir()
 {
     //INFORMAÇÕES DA CONTA ORIGEM
     Console.Write("Informe a conta de origem que vai realizar a transferência: ");
